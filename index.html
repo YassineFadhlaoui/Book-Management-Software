@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+
+  <title>Book library</title>
+
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="js/jquery.js"></script>      
+<script>if (window.module) module = window.module;</script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+<style type="text/css"></style>
+	<table  class="cardstable" style="width:100%; table-layout: fixed; td { width: 33%; }">
+
+</table>
+</body>
+
+<!--<script type="text/javascript" src="list.js"></script>!-->
+<script type="text/javascript">
+	const fs = require('fs');
+	
+	const map='./db/map.json';
+	const readJsonSync = require('read-json-sync');
+	var db=readJsonSync(map);
+	var index=0;
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+function add_append(UUID,book){
+	var res='<td><ul class="cards"><li class="cards__item"><div class="card"><div class="card__image card__image--'+UUID+'"></div><div class="card__content"><div class="card__title">'+book+'</div><p class="card__text">This is the shorthand for flex-grow, flex-shrink and flex-basis combined. The second and third parameters (flex-shrink and flex-basis) are optional. Default is 0 1 auto. </p><button class="btn btn--block card__btn" id="'+UUID+'">Open</button></div></div></li></td>'
+	
+	return res
+}
+	$.each( db, function( key, value ) {
+		
+		
+		if (index != 0 && index %3 == 0){
+			var uuid = uuidv4()
+			$(".cardstable").append("</tr><tr>")
+			var rule='.card__image--'+uuid+' {background-image: url('+value['thumbnail']+');}'
+			$("style").append(rule)
+			node=add_append(uuid,value['book'])
+			$(".cardstable").append(node)
+			$('#'+uuid).click(function(){
+				console.log(value['link'])
+			encoded_uri=encodeURI(value['link']);
+			const { spawn } = require('child_process');
+			const child = spawn('electron',['test.js',encoded_uri]);
+			})
+
+
+		}else if(index==0){
+			$(".cardstable").append('<tr>')
+			var uuid = uuidv4()
+			var rule='.card__image--'+uuid+' {background-image: url('+value['thumbnail']+');}'
+			$("style").append(rule)
+			node=add_append(uuid,value['book'])
+			$(".cardstable").append(node)
+			$('#'+uuid).click(function(){
+				console.log(value['link'])
+			encoded_uri=encodeURI(value['link']);
+			const { spawn } = require('child_process');
+			const child = spawn('electron',['test.js',encoded_uri]);
+			})
+	
+		}else{
+			var uuid = uuidv4()
+			var rule='.card__image--'+uuid+' {background-image: url('+value['thumbnail']+');}'
+			$("style").append(rule)
+			node=add_append(uuid,value['book'])
+			$(".cardstable").append(node)
+			$('#'+uuid).click(function(){
+				console.log(value['link'])
+			encoded_uri=encodeURI(value['link']);
+			const { spawn } = require('child_process');
+			console.log(encoded_uri)
+			const child = spawn('electron',['test.js',encoded_uri]);
+			})
+		}
+		index=index+1
+		//console.log(index)
+	});
+</script>
+</html>
