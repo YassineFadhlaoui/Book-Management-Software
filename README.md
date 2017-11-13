@@ -39,4 +39,4 @@ electron main.js
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/YassineFadhlaoui/Book-Management-Software/blob/master/LICENSE) file for details
 
 ## NOTE:
-This project still needs a lot of enhancement please contribute
+This project still needs a lot of enhancement please contribute.
