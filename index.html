@@ -8,8 +8,8 @@
   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="js/jquery.js"></script>      
 <script>if (window.module) module = window.module;</script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="css/font.css">
+  <link rel="stylesheet" href="css/normalize.min.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
@@ -36,7 +36,7 @@ function uuidv4() {
 }
 
 function add_append(UUID,book){
-	var res='<td><ul class="cards"><li class="cards__item"><div class="card"><div class="card__image card__image--'+UUID+'"></div><div class="card__content"><div class="card__title">'+book+'</div><p class="card__text">This is the shorthand for flex-grow, flex-shrink and flex-basis combined. The second and third parameters (flex-shrink and flex-basis) are optional. Default is 0 1 auto. </p><button class="btn btn--block card__btn" id="'+UUID+'">Open</button></div></div></li></td>'
+	var res='<td><ul class="cards"><li class="cards__item"><div class="card"><div class="card__image card__image--'+UUID+'"></div><div class="card__content"><div class="card__title">'+book+'</div><p class="card__text">This is an ebook description. I am working on it</p><button class="btn btn--block card__btn" id="'+UUID+'">Open</button></div></div></li></td>'
 	
 	return res
 }

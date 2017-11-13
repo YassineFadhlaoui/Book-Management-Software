@@ -1,0 +1,33 @@
+{
+  "name": "books-management-software",
+  "version": "1.0.0",
+  "description": "A cross platform software that manages e-books. It also open pdf files. The PDF viwer is based on Mozilla firefox pdf viewer and it inherts all its features. The desktop application is based on the trending npm module electron. This project needs some enhancements. ",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YassineFadhlaoui/Book-Management-Software.git"
+  },
+  "keywords": [
+    "pdf-viwer",
+    "electron",
+    "nodejs",
+    "books"
+  ],
+  "author": "Yassine Fadhlaoui",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YassineFadhlaoui/Book-Management-Software/issues"
+  },
+  "homepage": "https://github.com/YassineFadhlaoui/Book-Management-Software#readme",
+  "dependencies": {
+    "electron": "^1.7.9",
+    "electron-pdf-window": "^1.0.12",
+    "electron-prebuilt": "^1.4.13",
+    "jquery": "^3.2.1",
+    "pdf-image": "^1.1.0"
+  },
+  "devDependencies": {}
+}
