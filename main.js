@@ -10,7 +10,11 @@ BrowserWindow.$ = $;
 let win  
 
 function createWindow() { 
-   win = new BrowserWindow({width: 900, height: 600}) 
+   win = new BrowserWindow({
+width: 900,
+height: 600,
+icon: path.join(__dirname, 'icon/icon.png')
+}) 
    win.loadURL(url.format ({ 
       pathname: path.join(__dirname, 'index.html'), 
       protocol: 'file:', 

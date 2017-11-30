@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+
+  <title>Book library</title>
+
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="js/jquery.js"></script>      
+<script>if (window.module) module = window.module;</script>
+  <link rel="stylesheet" href="css/font.css">
+  <link rel="stylesheet" href="css/normalize.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/ribbon.css">
+  <link rel="stylesheet" type="text/css" href="css/menu.css">
+  <link rel="stylesheet" type="text/css" href="css/search.css">
+
+</head>
+<body>
+
+<div class="tutorial">
+    <ul style="z-index: 1; position:relative;">
+      <li >Categories<i class="fa fa-angle-down" ></i>
+        <ul id="list">
+
+        </ul>
+      </li>
+      <li></li>
+      <li><form>
+  <input type="text" name="search" placeholder="Search..">
+</form></li>
+    </ul>
+</div>
+	<div class="container"></div>
+	<style type="text/css">
+
+	</style>
+</body>
+
+<!--<script type="text/javascript" src="list.js"></script>!-->
+<script type="text/javascript">
+  const fs = require('fs');
+  const map = './db/map.json';
+  const readJsonSync = require('read-json-sync');
+  const _ = require('lodash')
+
+  var db = readJsonSync(map);
+  var index = 0;
+
+  function uuidv4() {
+   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0,
+     v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+   });
+  }
+
+  function add_append(UUID, book) {
+   var res = '<td><ul class="cards"><li class="cards__item"><div class="card"><div class="card__image card__image--' + UUID + '"></div><div class="card__content"><div class="card__title">' + book + '</div><p class="card__text">This is an ebook description. I am working on it</p><button class="btn btn--block card__btn" id="' + UUID + '">Open</button></div></div></li></td>'
+
+   return res
+  }
+
+  function populate_row(value,table_id) {
+   var uuid = uuidv4()
+   var rule = '.card__image--' + uuid + ' {background-image: url(' + value['thumbnail'] + ');}'
+   $("style").append(rule)
+   node = add_append(uuid, value['book'])
+   $("#"+table_id).append(node)
+   $('#' + uuid).click(function() {
+    console.log(value['link'])
+    encoded_uri = encodeURI(value['link']);
+    const {
+     spawn
+    } = require('child_process');
+    const child = spawn('electron', ['test.js', encoded_uri]);
+   })
+  }
+function populate(category){
+	index=0
+	var random_table_id = uuidv4()
+	$(".container").append('<table  id="'+random_table_id+'" style="width:100%; table-layout: fixed; td { width: 33%; }"></table>') 	
+	$.each(category, function(key, value) {
+
+   if (index != 0 && index % 3 == 0) {
+    $("#"+random_table_id).append("</tr>")
+    $("#"+random_table_id).append("<tr>")
+    populate_row(value,random_table_id)
+   } else if (index == 0) {
+    $("#"+random_table_id).append('<tr>')
+    populate_row(value,random_table_id)
+   } else {
+    populate_row(value,random_table_id)
+   }
+   index = index + 1
+  });
+}
+function sortCategories(obj) {
+    return Object.keys(obj).sort().reduce(function (result, key) {
+        result[key] = obj[key];
+        return result;
+    }, {});
+}
+
+Array.prototype.sortByebookName = function(key){
+    this.sort(function(a, b){
+        if(a[key] < b[key]){
+            return -1;
+        }else if(a[key] > b[key]){
+            return 1;
+        }
+        return 0;
+    });
+}
+categories=_.groupBy(db, "category")
+categories=sortCategories(categories)
+AllCategoriesList=Object.keys(categories)
+$.each(AllCategoriesList,function(value){
+	var uuid = uuidv4()
+	var category_href=AllCategoriesList[value]
+	var ebooks_number=categories[category_href].length
+ 	$("#list").append('<li id='+uuid+' ><a href=#'+category_href+'>'+category_href+'<span>'+ebooks_number+' </span></a></li>')
+})
+
+//categories.sort()
+$.each(categories,function(key,value){
+	$(".container").append('  <a class="button box" name='+key+'><center>'+key+'</center></a>')
+	value.sortByebookName("book")
+	populate(value)
+})
+  
+</script>
+</html>
