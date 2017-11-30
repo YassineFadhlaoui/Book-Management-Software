@@ -27,6 +27,7 @@
     "electron-pdf-window": "^1.0.12",
     "electron-prebuilt": "^1.4.13",
     "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
     "pdf-image": "^1.1.0"
   },
   "devDependencies": {}
